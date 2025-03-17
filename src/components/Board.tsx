@@ -1,10 +1,10 @@
-import "../styles/board.scss";
+import "../styles/game.scss";
+import Tile from "./Tile";
 
 const Board: React.FC = () => {
-    return (
-  <div className="game-board">
-  </div>
-)
+  const tiles = Array.from({ length: 16 }, (_, index) => <Tile key={index} />);
+
+  return <div className="game-board">{tiles}</div>;
 };
 
 export default Board;
