@@ -1,0 +1,36 @@
+.game-board {
+  display: grid;
+  justify-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(4, min-content);
+  gap: 10px;
+}
+
+.tile {
+  display: flex;
+  font-size: 4em;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #4a4648, #edc986);
+  border-radius: 10px;
+  transition: transform 0.3s;
+  border: 3px solid rgb(250, 42, 163);
+  animation: flipIn 1.2s ease-out forwards;
+}
+
+.tile:hover {
+  transform: scale(1.1);
+}
+
+@keyframes flipIn {
+  from {
+    opacity: 0;
+    transform: rotateY(90deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotateY(0);
+  }
+}
