@@ -3,7 +3,7 @@
   justify-items: center;
   justify-content: center;
   grid-template-columns: repeat(4, min-content);
-  gap: 10px;
+  gap: 20px;
 }
 
 .tile {
@@ -11,26 +11,36 @@
   font-size: 4em;
   justify-content: center;
   align-items: center;
-  width: 100px;
-  height: 100px;
-  background: linear-gradient(135deg, #4a4648, #edc986);
+  width: 200px;
+  height: 200px;
+  background-image: url("/src/assets/question-mark.png");
+  background-size: cover;
+  background-position: center;
   border-radius: 10px;
   transition: transform 0.3s;
-  border: 3px solid rgb(250, 42, 163);
-  animation: flipIn 1.2s ease-out forwards;
+  border: 6px solid rgb(120, 120, 120);
+  backface-visibility: hidden;
+  animation: flipIn 1.2s ease-out backwards;
+
+  &.hidden {
+    visibility: hidden; // Ukrywa kafelek, ale zachowuje jego miejsce
+  }
 }
 
 .tile:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
+}
+
+.tile.revealed {
+  background: #cec3b5;
 }
 
 @keyframes flipIn {
   from {
-    opacity: 0;
     transform: rotateY(90deg);
   }
   to {
-    opacity: 1;
+    
     transform: rotateY(0);
   }
 }

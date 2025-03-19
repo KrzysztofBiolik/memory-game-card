@@ -8,12 +8,12 @@ const Board: React.FC = () => {
 
   useEffect(() => {
     initializeGame(); // Ładujemy kafelki na start
-  }, []);
+  }, [initializeGame]);
 
   return (
     <div className="game-board">
       {tiles.map((tile) => (
-        <Tile key={tile.id} id={tile.id} image={tile.image} />
+        <Tile key={tile.id} id={tile.id} image={tile.image} isMatched={tile.isMatched} />
       ))}
     </div>
   );
