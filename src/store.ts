@@ -3,19 +3,39 @@ import { generateTiles } from "./utils/useTileGenerator";
 import { Tile } from "./types";
 import { images } from "./assets/image";
 
+type Difficulty = "easy" | "medium" | "hard";
+
 interface GameState {
   tiles: Tile[];
-  initializeGame: () => void;
+  initializeGame: (difficulty: Difficulty) => void;
   selectTile: (tile: Tile) => void;
   selectedTiles: Tile[];
+  gameStarted: boolean;
+  difficulty: Difficulty;
+  setDifficulty: (difficulty: Difficulty) => void;
 }
 
 export const useGameStore = create<GameState>((set, get) => ({
   tiles: [],
   selectedTiles: [],
+  gameStarted: false,
+  difficulty: "easy", // Domyślny poziom
 
-  initializeGame: () =>
-    set({ tiles: generateTiles(images), selectedTiles: [] }),
+  initializeGame: (difficulty: Difficulty) => {
+    const numPairs =
+      difficulty === "easy" ? 8 : difficulty === "medium" ? 12 : 16;
+    // Używamy tylko tylu obrazków, ile par chcemy mieć
+    set({
+      tiles: generateTiles(images.slice(0, numPairs)),
+      selectedTiles: [],
+      gameStarted: true,
+      difficulty, // Ustawienie wybranego poziomu trudności
+    });
+  },
+
+  setDifficulty: (difficulty) => {
+    set({ difficulty });
+  },
 
   selectTile: (tile) => {
     const { selectedTiles, tiles } = get();
