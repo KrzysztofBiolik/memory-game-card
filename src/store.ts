@@ -7,6 +7,7 @@ type Difficulty = "easy" | "medium" | "hard";
 
 interface GameState {
   tiles: Tile[];
+  attempts: number;
   initializeGame: (difficulty: Difficulty) => void;
   selectTile: (tile: Tile) => void;
   selectedTiles: Tile[];
@@ -21,6 +22,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   selectedTiles: [],
   gameStarted: false,
   difficulty: "easy", // Domyślny poziom
+  attempts: 0, 
 
   initializeGame: (difficulty: Difficulty) => {
     const numPairs =
@@ -31,6 +33,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       selectedTiles: [],
       gameStarted: true,
       difficulty, // Ustawienie wybranego poziomu trudności
+      attempts: 0, // Resetowanie prób po rozpoczęciu nowej gry
     });
   },
 
@@ -41,7 +44,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   setGameStarted: (started: boolean) => set({ gameStarted: started }),
 
   selectTile: (tile) => {
-    const { selectedTiles, tiles } = get();
+    const { selectedTiles, tiles, attempts } = get();
 
     // Ignorujemy kliknięcie, jeśli już wybrano 2 kafelki lub kafelek jest dopasowany
     if (
@@ -71,6 +74,7 @@ export const useGameStore = create<GameState>((set, get) => ({
               )
             : tiles,
           selectedTiles: [],
+          attempts: attempts + 1, // Zwiększanie liczby prób
         });
       }, 1000);
     }

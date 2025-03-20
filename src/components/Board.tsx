@@ -7,7 +7,7 @@ const Board: React.FC = () => {
   const { tiles } = useGameStore();
 
   return (
-    <div>
+    <div className="game-screen">
       <div className="game-board">
         {tiles.map((tile) => (
           <Tile
