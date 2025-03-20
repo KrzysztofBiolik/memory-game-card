@@ -2,8 +2,9 @@
   display: grid;
   justify-items: center;
   justify-content: center;
-  grid-template-columns: repeat(4, min-content);
+  grid-template-columns: repeat(6, min-content);
   gap: 20px;
+  margin-top: 20px;
 }
 
 .tile {
@@ -11,14 +12,14 @@
   font-size: 4em;
   justify-content: center;
   align-items: center;
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   background-image: url("/src/assets/question-mark.png");
   background-size: cover;
   background-position: center;
   border-radius: 10px;
   transition: transform 0.3s;
-  border: 6px solid rgb(120, 120, 120);
+  border: 6px solid rgb(189, 145, 203);
   backface-visibility: hidden;
   animation: flipIn 1.2s ease-out backwards;
 
@@ -28,11 +29,12 @@
 }
 
 .tile:hover {
-  transform: scale(1.05);
+  transform: scale(1.01);
+  border: 6px solid rgb(129, 88, 129);;
 }
 
 .tile.revealed {
-  background: #cec3b5;
+  background: #f3f1e9;
 }
 
 @keyframes flipIn {
@@ -43,4 +45,48 @@
     
     transform: rotateY(0);
   }
+}
+
+
+.start-screen {
+  display: flex;
+  flex-direction: column; // Układ w pionie
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 400px; // Maksymalna szerokość
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+select,
+button {
+  font-size: 1rem;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+select {
+  background: #f0f0f0;
+}
+
+button {
+  margin-top:30px;
+  padding: 20px;
+  background: #ce67ca;
+  color: white;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background: #5b166e;
+  }
+}
+
+.subHeader {
+  margin: 0;
+  padding: 20px 0;
 }
