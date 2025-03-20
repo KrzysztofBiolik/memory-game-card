@@ -13,6 +13,7 @@ interface GameState {
   gameStarted: boolean;
   difficulty: Difficulty;
   setDifficulty: (difficulty: Difficulty) => void;
+  setGameStarted: (started: boolean) => void;
 }
 
 export const useGameStore = create<GameState>((set, get) => ({
@@ -36,6 +37,8 @@ export const useGameStore = create<GameState>((set, get) => ({
   setDifficulty: (difficulty) => {
     set({ difficulty });
   },
+
+  setGameStarted: (started: boolean) => set({ gameStarted: started }),
 
   selectTile: (tile) => {
     const { selectedTiles, tiles } = get();

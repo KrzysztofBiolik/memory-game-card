@@ -18,7 +18,7 @@
   background-size: cover;
   background-position: center;
   border-radius: 10px;
-  transition: transform 0.3s;
+  transition: 0.5s;
   border: 6px solid rgb(189, 145, 203);
   backface-visibility: hidden;
   animation: flipIn 1.2s ease-out backwards;
@@ -30,7 +30,7 @@
 
 .tile:hover {
   transform: scale(1.01);
-  border: 6px solid rgb(129, 88, 129);;
+  border: 6px solid rgb(180, 131, 212);;
 }
 
 .tile.revealed {
