@@ -7,7 +7,6 @@ type Difficulty = "easy" | "medium" | "hard";
 
 interface GameState {
   tiles: Tile[];
-  attempts: number;
   initializeGame: (difficulty: Difficulty) => void;
   selectTile: (tile: Tile) => void;
   selectedTiles: Tile[];
@@ -15,25 +14,40 @@ interface GameState {
   difficulty: Difficulty;
   setDifficulty: (difficulty: Difficulty) => void;
   setGameStarted: (started: boolean) => void;
+  attempts: number;
+  timeElapsed: number; //liczba sekund, które upłynęły od rozpoczęcia gry.
+  timer: number | null; //identyfikator setInterval, czyli liczba zwracana przez window.setInterval().
+  stopTimer: () => void;
 }
 
 export const useGameStore = create<GameState>((set, get) => ({
   tiles: [],
   selectedTiles: [],
   gameStarted: false,
-  difficulty: "easy", // Domyślny poziom
-  attempts: 0, 
+  difficulty: "easy",
+  attempts: 0,
+  timeElapsed: 0,
+  timer: null,
 
   initializeGame: (difficulty: Difficulty) => {
+    get().stopTimer();
+    // Resetujemy czas i zatrzymujemy poprzedni timer
+
     const numPairs =
       difficulty === "easy" ? 8 : difficulty === "medium" ? 12 : 16;
-    // Używamy tylko tylu obrazków, ile par chcemy mieć
+
+    const timer = window.setInterval(() => {
+      set((state) => ({ timeElapsed: state.timeElapsed + 1 }));
+    }, 1000);
+
     set({
       tiles: generateTiles(images.slice(0, numPairs)),
       selectedTiles: [],
       gameStarted: true,
-      difficulty, // Ustawienie wybranego poziomu trudności
-      attempts: 0, // Resetowanie prób po rozpoczęciu nowej gry
+      difficulty,
+      attempts: 0,
+      timeElapsed: 0,
+      timer,
     });
   },
 
@@ -41,42 +55,56 @@ export const useGameStore = create<GameState>((set, get) => ({
     set({ difficulty });
   },
 
-  setGameStarted: (started: boolean) => set({ gameStarted: started }),
+  setGameStarted: (started: boolean) => {
+    if (!started) {
+      get().stopTimer(); // Zatrzymanie timera
+      set({ gameStarted: false, timeElapsed: 0, attempts: 0 });
+    }
+  },
+
+  stopTimer: () => {
+    const { timer } = get();
+    if (timer !== null) {
+      clearInterval(timer);
+      set({ timer: null });
+    }
+  },
 
   selectTile: (tile) => {
     const { selectedTiles, tiles, attempts } = get();
 
-    // Ignorujemy kliknięcie, jeśli już wybrano 2 kafelki lub kafelek jest dopasowany
     if (
       selectedTiles.length === 2 ||
       selectedTiles.some((t) => t.id === tile.id)
     )
       return;
 
-    // Dodanie do tablice selectedTiles klikniętego kafelka
     const newSelected = [...selectedTiles, tile];
     set({ selectedTiles: newSelected });
 
-    // jesli długość tablicy selectedTiles osiąga 2 to sprawdzamy dopasowanie kafelków
     if (newSelected.length === 2) {
       const [first, second] = newSelected;
       const isMatch = first.image === second.image;
 
-      // w zależności od dopasowanie kafelków w tablicy Tiles zostawiamy wartości
-      // isMatched w obu kafelkach niezmienione lub zmieniamy je na true
       setTimeout(() => {
-        set({
-          tiles: isMatch
-            ? tiles.map((t) =>
-                t.id === first.id || t.id === second.id
-                  ? { ...t, isMatched: true }
-                  : t
-              )
-            : tiles,
-          selectedTiles: [],
-          attempts: attempts + 1, // Zwiększanie liczby prób
-        });
-      }, 1000);
+        let updatedTiles = tiles;
+
+        if (isMatch) {
+          updatedTiles = tiles.map((t) =>
+            t.id === first.id || t.id === second.id
+              ? { ...t, isMatched: true }
+              : t
+          );
+          set({ tiles: updatedTiles });
+        }
+
+        set({ selectedTiles: [], attempts: attempts + 1 });
+
+        // Sprawdzenie, czy wszystkie kafelki są dopasowane **po aktualizacji**
+        if (updatedTiles.every((t) => t.isMatched)) {
+          get().stopTimer();
+        }
+      }, 500);
     }
   },
 }));
