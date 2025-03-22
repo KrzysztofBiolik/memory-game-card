@@ -27,17 +27,29 @@ const Board: React.FC = () => {
       {!gameOver ? (
         <>
           <div className="buttons">
-            <Button onClick={() => setGameStarted(false)} className="zeroMargin">
+            <Button
+              onClick={() => setGameStarted(false)}
+              className="zeroMargin"
+            >
               Powrót
             </Button>
             <Stats
               headers={["Czas (s)", "Próby"]}
               data={[[timeElapsed, attempts]]}
             />
-            <Button onClick={() => initializeGame(difficulty)} className="zeroMargin">Restart</Button>
+            <Button
+              onClick={() => initializeGame(difficulty)}
+              className="zeroMargin"
+            >
+              Restart
+            </Button>
           </div>
 
-          <div className="game-board">
+          <div
+            className={`game-board ${
+              difficulty === "easy" ? "" : "moreTiles"
+            }`}
+          >
             {tiles.map((tile) => (
               <Tile
                 key={tile.id}
