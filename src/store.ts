@@ -18,6 +18,7 @@ interface GameState {
   timeElapsed: number; //liczba sekund, które upłynęły od rozpoczęcia gry.
   timer: number | null; //identyfikator setInterval, czyli liczba zwracana przez window.setInterval().
   stopTimer: () => void;
+  saveResult: () => void; // Dodajemy metodę zapisu wyniku
 }
 
 export const useGameStore = create<GameState>((set, get) => ({
@@ -103,8 +104,26 @@ export const useGameStore = create<GameState>((set, get) => ({
         // Sprawdzenie, czy wszystkie kafelki są dopasowane **po aktualizacji**
         if (updatedTiles.every((t) => t.isMatched)) {
           get().stopTimer();
+          get().saveResult();
         }
       }, 500);
     }
+  },
+
+  saveResult: () => {
+    const { timeElapsed, difficulty, attempts } = get();
+    const storedResults = JSON.parse(localStorage.getItem("gameResults") || "[]");
+
+    const newResult = {
+      time: timeElapsed,
+      attempts,
+      difficulty,
+      date: new Date().toLocaleString(),
+    };
+
+    localStorage.setItem(
+      "gameResults",
+      JSON.stringify([...storedResults, newResult])
+    );
   },
 }));
