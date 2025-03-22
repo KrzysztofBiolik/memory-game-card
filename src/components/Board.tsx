@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useGameStore } from "../store";
 import Tile from "./Tile";
 import Stats from "./Stats";
+import "../styles/game.scss";
 
 const Board: React.FC = () => {
   const { tiles, attempts, timeElapsed, setGameStarted } = useGameStore();

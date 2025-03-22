@@ -1,7 +1,6 @@
 import { useGameStore } from "./store";
 import Board from "./components/Board";
 import StartScreen from "./components/StartScreen";
-import "./styles/game.scss";
 import "./styles/app.scss";
 
 const App: React.FC = () => {

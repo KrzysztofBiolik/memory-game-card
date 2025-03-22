@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useGameStore } from "../store";
 import Stats from "./Stats";
+import "../styles/startScreen.scss";
 
 interface GameResult {
   time: number;

@@ -1,28 +1,33 @@
 .results-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+
+  tbody tr:last-child td {
+    border-bottom: none;
   }
-  
-  .results-table th,
-  .results-table td {
+
+  th,
+  td {
     padding: 10px;
     text-align: center;
   }
-  
-  .results-table th {
+
+  th {
     background-color: #f4f4f4;
   }
-  
-  .results-table tr:nth-child(even) {
+
+  tr:nth-child(even) {
     background-color: #eaf5fc;
   }
-  
-  .results-table tr:nth-child(odd) {
+
+  tr:nth-child(odd) {
     background-color: #f8ebfc;
   }
-  
-  .results-table td {
+
+  td {
     border-bottom: 1px solid #ccc;
   }
-  
+}

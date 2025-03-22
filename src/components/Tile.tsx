@@ -1,5 +1,6 @@
 import { Tile as TileType } from "../types";
 import { useGameStore } from "../store";
+import "../styles/tile.scss";
 
 const Tile: React.FC<TileType> = ({ id, image }) => {
   const { selectTile, selectedTiles, tiles } = useGameStore();
