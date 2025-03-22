@@ -3,17 +3,17 @@ import { useGameStore } from "../store";
 
 const Tile: React.FC<TileType> = ({ id, image }) => {
   const { selectTile, selectedTiles, tiles } = useGameStore();
+  const tileData = tiles.find((t) => t.id === id) || { isMatched: false };
 
-  const tileData = tiles.find((tile) => tile.id === id);
-  const isMatched = tileData?.isMatched;
-  const isRevealed = selectedTiles.some((tile) => tile.id === id) || isMatched;
+  const isRevealed =
+    selectedTiles.some((tile) => tile.id === id) || tileData.isMatched;
 
   return (
     <div
       className={`tile ${isRevealed ? "revealed" : ""} ${
-        isMatched ? "hidden" : ""
+        tileData.isMatched ? "hidden" : ""
       }`}
-      onClick={() => selectTile({ id, image, isMatched: true })}
+      onClick={() => selectTile({ id, image, isMatched: false })}
     >
       <span className="tile-content">{isRevealed ? image : ""}</span>
     </div>
