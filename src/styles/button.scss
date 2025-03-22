@@ -1,0 +1,18 @@
+.button {
+    font-size: 1rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: #cc5dc8;
+    color: white;
+    transition: background-color 0.3s;
+  
+    &:hover {
+      background-color: #5b166e;
+    }
+
+    &.zeroMargin {
+        margin: 0;
+    }
+}

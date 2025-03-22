@@ -3,6 +3,13 @@
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+  }
 }
 
 .game-board {
@@ -32,16 +39,4 @@
     font-size: 3rem; // Większa czcionka dla nagłówka
     margin: 1rem;
   }
-
-  button {
-    background: #d8b3ff; // Jasny fiolet
-    color: black;
-    border: none;
-    padding: 1rem 2rem;
-  }
 }
-
-
-
-
-

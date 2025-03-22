@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useGameStore } from "../store";
 import Stats from "./Stats";
+import Button from "./Button"; // Importujemy Button
 import "../styles/startScreen.scss";
 
 interface GameResult {
@@ -40,14 +41,12 @@ const StartScreen: React.FC = () => {
               <option value="hard">Trudny (36 kafelków)</option>
             </select>
           </label>
-          <button onClick={() => initializeGame(difficulty)}>
-            Rozpocznij grę
-          </button>
+          <Button onClick={() => initializeGame(difficulty)}>Rozpocznij grę</Button>
         </div>
       </div>
-      <button onClick={() => setShowStats(!showStats)}>
+      <Button onClick={() => setShowStats(!showStats)}>
         {showStats ? "Ukryj statystyki" : "Pokaż statystyki"}
-      </button>
+      </Button>
       {showStats && (
         <div className="stats-container">
           <h2>Historia gier</h2>

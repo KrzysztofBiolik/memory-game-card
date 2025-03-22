@@ -1,11 +1,19 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useGameStore } from "../store";
 import Tile from "./Tile";
 import Stats from "./Stats";
+import Button from "./Button"; // Importujemy Button
 import "../styles/game.scss";
 
 const Board: React.FC = () => {
-  const { tiles, attempts, timeElapsed, setGameStarted } = useGameStore();
+  const {
+    tiles,
+    difficulty,
+    attempts,
+    timeElapsed,
+    setGameStarted,
+    initializeGame,
+  } = useGameStore();
   const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
@@ -16,10 +24,19 @@ const Board: React.FC = () => {
 
   return (
     <div className="game-screen">
-      {/* Jeśli gra trwa, wyświetl statystyki i planszę */}
       {!gameOver ? (
         <>
-          <Stats headers={["Czas (s)", "Próby"]} data={[[timeElapsed, attempts]]} />
+          <div className="buttons">
+            <Button onClick={() => setGameStarted(false)} className="zeroMargin">
+              Powrót
+            </Button>
+            <Stats
+              headers={["Czas (s)", "Próby"]}
+              data={[[timeElapsed, attempts]]}
+            />
+            <Button onClick={() => initializeGame(difficulty)} className="zeroMargin">Restart</Button>
+          </div>
+
           <div className="game-board">
             {tiles.map((tile) => (
               <Tile
@@ -32,11 +49,15 @@ const Board: React.FC = () => {
           </div>
         </>
       ) : (
-        // Jeśli gra się skończyła, wyświetl baner końcowy
         <div className="game-over-banner">
           <h2>Twój wynik!</h2>
-          <Stats headers={["Czas (s)", "Próby"]} data={[[timeElapsed, attempts]]} />
-          <button onClick={() => setGameStarted(false)}>Powrót</button>
+          <Stats
+            headers={["Czas (s)", "Próby"]}
+            data={[[timeElapsed, attempts]]}
+          />
+          <Button onClick={() => setGameStarted(false)} className="secondary">
+            Powrót
+          </Button>
         </div>
       )}
     </div>
