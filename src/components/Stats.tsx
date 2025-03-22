@@ -1,20 +1,31 @@
-import { useGameStore } from "../store";
+import React from "react";
+import "../styles/stats.scss";
 
-const Stats: React.FC = () => {
-  const { setGameStarted, attempts, timeElapsed } = useGameStore();
+interface ResultsTableProps {
+  headers: string[];
+  data: (string | number)[][];
+}
 
+const Stats: React.FC<ResultsTableProps> = ({ headers, data }) => {
   return (
-    <div className="stats-container">
-      <p>
-        Liczba prób: <strong>{attempts}</strong>
-      </p>
-      <p>
-        Czas gry: <strong>{timeElapsed} s</strong>
-      </p>
-      <button className="restart-button" onClick={() => setGameStarted(false)}>
-        Powrót
-      </button>
-    </div>
+    <table className="results-table">
+      <thead>
+        <tr>
+          {headers.map((header, index) => (
+            <th key={index}>{header}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((row, rowIndex) => (
+          <tr key={rowIndex}>
+            {row.map((cell, cellIndex) => (
+              <td key={cellIndex}>{cell}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 };
 
