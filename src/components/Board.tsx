@@ -1,25 +1,43 @@
-import "../styles/game.scss";
+import { useEffect, useState } from "react";
 import { useGameStore } from "../store";
 import Tile from "./Tile";
 import Stats from "./Stats";
 
 const Board: React.FC = () => {
-  const { tiles, timeElapsed, attempts, setGameStarted } = useGameStore();
+  const { tiles, attempts, timeElapsed, setGameStarted } = useGameStore();
+  const [gameOver, setGameOver] = useState(false);
+
+  useEffect(() => {
+    if (tiles.length > 0 && tiles.every((tile) => tile.isMatched)) {
+      setGameOver(true);
+    }
+  }, [tiles]);
 
   return (
     <div className="game-screen">
-      <div className="game-board">
-        {tiles.map((tile) => (
-          <Tile
-            key={tile.id}
-            id={tile.id}
-            image={tile.image}
-            isMatched={tile.isMatched}
-          />
-        ))}
-      </div>
-      <Stats headers={["Czas (s)", "Próby"]} data={[[timeElapsed, attempts]]} />
-      <button onClick={() => setGameStarted(false)}>Nowa gra</button>
+      {/* Jeśli gra trwa, wyświetl statystyki i planszę */}
+      {!gameOver ? (
+        <>
+          <Stats headers={["Czas (s)", "Próby"]} data={[[timeElapsed, attempts]]} />
+          <div className="game-board">
+            {tiles.map((tile) => (
+              <Tile
+                key={tile.id}
+                id={tile.id}
+                image={tile.image}
+                isMatched={tile.isMatched}
+              />
+            ))}
+          </div>
+        </>
+      ) : (
+        // Jeśli gra się skończyła, wyświetl baner końcowy
+        <div className="game-over-banner">
+          <h2>Twój wynik!</h2>
+          <Stats headers={["Czas (s)", "Próby"]} data={[[timeElapsed, attempts]]} />
+          <button onClick={() => setGameStarted(false)}>Powrót</button>
+        </div>
+      )}
     </div>
   );
 };
