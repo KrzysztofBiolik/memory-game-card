@@ -4,7 +4,7 @@ import Tile from "./Tile";
 import Stats from "./Stats";
 
 const Board: React.FC = () => {
-  const { tiles } = useGameStore();
+  const { tiles, timeElapsed, attempts } = useGameStore();
 
   return (
     <div className="game-screen">
@@ -18,7 +18,10 @@ const Board: React.FC = () => {
           />
         ))}
       </div>
-      <Stats />
+      <Stats
+        headers={["Czas (s)", "Próby"]}
+        data={[[timeElapsed, attempts]]}
+      />
     </div>
   );
 };
