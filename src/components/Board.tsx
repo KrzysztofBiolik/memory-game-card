@@ -4,7 +4,7 @@ import Tile from "./Tile";
 import Stats from "./Stats";
 
 const Board: React.FC = () => {
-  const { tiles, timeElapsed, attempts } = useGameStore();
+  const { tiles, timeElapsed, attempts, setGameStarted } = useGameStore();
 
   return (
     <div className="game-screen">
@@ -18,10 +18,8 @@ const Board: React.FC = () => {
           />
         ))}
       </div>
-      <Stats
-        headers={["Czas (s)", "Próby"]}
-        data={[[timeElapsed, attempts]]}
-      />
+      <Stats headers={["Czas (s)", "Próby"]} data={[[timeElapsed, attempts]]} />
+      <button onClick={() => setGameStarted(false)}>Nowa gra</button>
     </div>
   );
 };
