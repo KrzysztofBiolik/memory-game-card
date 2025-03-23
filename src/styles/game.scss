@@ -1,21 +1,35 @@
+@use 'config.scss' as *;
+
 .game-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  max-width: 800px;
   gap: 1rem;
+  margin: auto;
+  margin-top: 40px;
 
   .buttons {
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 2rem;
     width: 100%;
   }
 }
 
 .game-board {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  justify-content: center;
+  align-content: center;
+  grid-template-columns: repeat(4, minmax(10px, 150px));
+  grid-gap: 10px;
+  width: 100%;
+  height: 100%;
+
+  &.moreTiles {
+    grid-template-columns: repeat(6, 1fr);
+  }
 }
 
 .game-over-banner {
@@ -23,9 +37,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
-  color: black;
-  padding: 2rem; // Większy padding dla większej skali
+  background: $light-color;
+  color: $dark-color;
+  padding: 2rem;
   border-radius: 12px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -36,7 +50,8 @@
   align-items: center;
 
   h2 {
-    font-size: 3rem; // Większa czcionka dla nagłówka
+    font-size: 3rem;
     margin: 1rem;
+    color: $dark-color;
   }
 }

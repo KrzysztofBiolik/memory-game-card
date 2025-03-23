@@ -1,37 +1,41 @@
+@use "config.scss";
+
 .tile {
-    display: flex;
-    font-size: 4em;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    height: 100px;
-    background-image: url("/src/assets/question-mark.png");
-    background-size: cover;
-    background-position: center;
-    border-radius: 10px;
-    transition: 0.5s;
-    border: 6px solid rgb(189, 145, 203);
-    animation: flipIn 1.2s ease-out backwards;
-  
-    &.hidden {
-      visibility: hidden; // Ukrywa kafelek, ale zachowuje jego miejsce
-    }
-  
-    &:hover {
-      transform: scale(1.01);
-      border: 6px solid rgb(180, 131, 212);
-    }
-  
-    &.revealed {
-      background: #f3f1e9;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("/src/assets/question-mark.png");
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  transition: 0.5s;
+  border: 6px solid rgb(189, 145, 203);
+  animation: flipIn 1.2s ease-out backwards;
+  aspect-ratio: 1/1;
+
+  &.hidden {
+    visibility: hidden; // Ukrywa kafelek, ale zachowuje jego miejsce
   }
-  
-  @keyframes flipIn {
-    from {
-      transform: rotateY(90deg);
-    }
-    to {
-      transform: rotateY(0);
-    }
+
+  &:hover {
+    transform: scale(1.01);
+    border: 6px solid rgb(180, 131, 212);
   }
+
+  &.revealed {
+    background: #f3f1e9;
+  }
+
+  .tile-content {
+    width: 90%;
+  }
+}
+
+@keyframes flipIn {
+  from {
+    transform: rotateY(90deg);
+  }
+  to {
+    transform: rotateY(0);
+  }
+}

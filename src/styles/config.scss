@@ -1,0 +1,14 @@
+$primary-color: #faf9f8; // Jasnobeżowy
+$secondary-color: #cc5dc8;
+$hover-color: #e4b6f0; 
+$background-color: #f8f9fa; 
+$dark-color: #333; 
+$light-color: #fff; 
+
+@function set-text-color($color) {
+  @if (lightness($color) > 40%) {
+    @return $dark-color; 
+  } @else {
+    @return $primary-color; 
+  }
+}
