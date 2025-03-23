@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { generateTiles } from "./utils/useTileGenerator";
 import { Tile } from "./types";
-import { images } from "./assets/image";
+import { images } from "./data/image";
 
 type Difficulty = "easy" | "medium" | "hard";
 
@@ -35,7 +35,7 @@ export const useGameStore = create<GameState>((set, get) => ({
     // Resetujemy czas i zatrzymujemy poprzedni timer
 
     const numPairs =
-      difficulty === "easy" ? 8 : difficulty === "medium" ? 12 : 16;
+      difficulty === "easy" ? 8 : difficulty === "medium" ? 12 : 18;
 
     const timer = window.setInterval(() => {
       set((state) => ({ timeElapsed: state.timeElapsed + 1 }));

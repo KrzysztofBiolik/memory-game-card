@@ -24,8 +24,8 @@ const StartScreen: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <div className="start-screen">
+    <div className="startScreen">
+      <div className="form">
         <h2 className="subHeader">Wybierz poziom trudności</h2>
         <div className="difficulty-container">
           <label>

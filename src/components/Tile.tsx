@@ -16,7 +16,7 @@ const Tile: React.FC<TileType> = ({ id, image }) => {
       }`}
       onClick={() => selectTile({ id, image, isMatched: false })}
     >
-      <span className="tile-content">{isRevealed ? image : ""}</span>
+      <div className="tile-content">{isRevealed ? <img src={image} alt="tile" />: ""}</div>
     </div>
   );
 };
