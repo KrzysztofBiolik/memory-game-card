@@ -2,8 +2,13 @@
 
 .results-table {
   width: 100%;
+  padding:10px;
   border-radius: 12px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+
+  &.smaller{
+    padding:0;
+  }
 
   tbody tr:last-child td {
     border-bottom: none;
@@ -11,16 +16,16 @@
 
   th,
   td {
-    padding: 4px;
+    padding: 8px 12px;
     text-align: center;
   }
 
   th {
-    background-color: #f4f4f4;
+    background-color: #f8f8f8;
   }
 
   tr:nth-child(even) {
-    background-color: #eaf5fc;
+    background-color: #f1c8fa;
   }
 
   tr:nth-child(odd) {

@@ -4,11 +4,12 @@ import "../styles/stats.scss";
 interface ResultsTableProps {
   headers: string[];
   data: (string | number)[][];
+  className: string[];
 }
 
-const Stats: React.FC<ResultsTableProps> = ({ headers, data }) => {
+const Stats: React.FC<ResultsTableProps> = ({ headers, data, className }) => {
   return (
-    <table className="results-table">
+    <table className={className.join(" ")}>
       <thead>
         <tr>
           {headers.map((header, index) => (

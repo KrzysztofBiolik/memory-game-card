@@ -34,6 +34,7 @@ const Board: React.FC = () => {
               Powrót
             </Button>
             <Stats
+            className={["results-table smaller"]}
               headers={["Czas (s)", "Próby"]}
               data={[[timeElapsed, attempts]]}
             />
@@ -46,9 +47,7 @@ const Board: React.FC = () => {
           </div>
 
           <div
-            className={`game-board ${
-              difficulty === "easy" ? "" : "moreTiles"
-            }`}
+            className={`game-board ${difficulty === "easy" ? "" : "moreTiles"}`}
           >
             {tiles.map((tile) => (
               <Tile
@@ -64,12 +63,21 @@ const Board: React.FC = () => {
         <div className="game-over-banner">
           <h2>Twój wynik!</h2>
           <Stats
+          className={["results-table"]}
             headers={["Czas (s)", "Próby"]}
             data={[[timeElapsed, attempts]]}
           />
-          <Button onClick={() => setGameStarted(false)} className="secondary">
-            Powrót
-          </Button>
+          <div className="buttons-endgame">
+            <Button onClick={() => setGameStarted(false)} className="secondary">
+              Ekran początkowy
+            </Button>
+            <Button
+              onClick={() => initializeGame(difficulty)}
+
+            >
+              Restart
+            </Button>
+          </div>
         </div>
       )}
     </div>

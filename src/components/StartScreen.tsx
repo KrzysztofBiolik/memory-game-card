@@ -51,6 +51,7 @@ const StartScreen: React.FC = () => {
         <div className="stats-container">
           <h2>Historia gier</h2>
           <Stats
+          className={["results-table"]}
             headers={["#", "Czas (s)", "Próby", "Trudność", "Data"]}
             data={gameResults.map((result, index) => [
               index + 1,
