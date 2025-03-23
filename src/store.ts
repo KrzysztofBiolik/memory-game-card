@@ -118,7 +118,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       time: timeElapsed,
       attempts,
       difficulty,
-      date: new Date().toLocaleString(),
+      date: new Date().toISOString(),
     };
 
     localStorage.setItem(
